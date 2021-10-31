@@ -1,6 +1,7 @@
 package com.grcp.aws.project_01.publisher;
 
 import com.amazonaws.services.sns.AmazonSNS;
+import com.amazonaws.services.sns.model.PublishResult;
 import com.amazonaws.services.sns.model.Topic;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -35,7 +36,8 @@ public class ProductPublisher {
     public void execute(Product product, EventType eventType, String username) {
         ProductEvent productEvent = new ProductEvent(product.getId(), product.getCode(), username);
         EventWrapper eventWrapper = new EventWrapper(eventType, convertToJson(productEvent));
-        snsClient.publish(this.productEventTopic.getTopicArn(), convertToJson(eventWrapper));
+        PublishResult published = snsClient.publish(this.productEventTopic.getTopicArn(), convertToJson(eventWrapper));
+        LOGGER.info("Message sent. MessageId: {}", published.getMessageId());
     }
 
     private String convertToJson(EventWrapper eventWrapper) {

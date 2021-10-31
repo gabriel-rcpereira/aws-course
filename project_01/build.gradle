@@ -59,6 +59,7 @@ dependencies {
 
 	implementation platform('com.amazonaws:aws-java-sdk-bom:1.11.1000')
 	implementation 'com.amazonaws:aws-java-sdk-sns'
+	implementation 'com.amazonaws:aws-java-sdk-sqs'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
