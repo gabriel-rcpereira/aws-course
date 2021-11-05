@@ -11,11 +11,11 @@ services:
 
   localstack:
     image: localstack/localstack
+    ports:
+      - '4566-4597:4566-4597'
     environment:
       - AWS_DEFAULT_REGION=us-east-1
       - EDGE_PORT=4566
-      - SERVICES=sqs,sns
-    ports:
-      - '4566-4597:4566-4597'
+      - SERVICES=sqs,sns, dynamodb
     volumes:
-      - "${TMPDIR:-/tmp/localstack}:/tmp/localstack"
+      - "${TMPDIR:-/tmp/localstack-bkp}:/tmp/localstack-bkp"

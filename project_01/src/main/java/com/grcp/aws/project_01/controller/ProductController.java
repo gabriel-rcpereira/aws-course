@@ -33,9 +33,9 @@ public class ProductController {
         return ResponseEntity.ok(this.productRepository.findAll());
     }
 
-    @GetMapping("/api/products/{id}")
-    public ResponseEntity<Product> getById(@PathVariable("id") Long id) {
-        return this.productRepository.findById(id)
+    @GetMapping("/api/products/{code}")
+    public ResponseEntity<Product> getById(@PathVariable("id") String code) {
+        return this.productRepository.findByCode(code)
                 .map(product -> ResponseEntity.ok(product))
                 .orElse(ResponseEntity.notFound()
                         .build());
@@ -55,10 +55,10 @@ public class ProductController {
                 .build();
     }
 
-    @PutMapping("/api/products/{id}")
+    @PutMapping("/api/products/{code}")
     public ResponseEntity<Void> update(@RequestBody Product updatedProduct,
-                                       @PathVariable Long id) {
-        Optional<Product> foundProductOpt = this.productRepository.findById(id);
+                                       @PathVariable("code") String code) {
+        Optional<Product> foundProductOpt = this.productRepository.findByCode(code);
 
         if (foundProductOpt.isEmpty()) {
             return ResponseEntity.notFound()
@@ -73,16 +73,16 @@ public class ProductController {
                 .build();
     }
 
-    @DeleteMapping("/api/products/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        Optional<Product> foundProductOpt = this.productRepository.findById(id);
+    @DeleteMapping("/api/products/{code}")
+    public ResponseEntity<Void> delete(@PathVariable("code") String code) {
+        Optional<Product> foundProductOpt = this.productRepository.findByCode(code);
 
         if (foundProductOpt.isEmpty()) {
             return ResponseEntity.notFound()
                     .build();
         }
 
-        this.productRepository.deleteById(id);
+        this.productRepository.delete(foundProductOpt.get());
         this.productPublisher.execute(foundProductOpt.get(), EventType.DELETED, "user02");
 
         return ResponseEntity.noContent()

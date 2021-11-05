@@ -18,8 +18,9 @@ import org.springframework.stereotype.Service;
 public class ProductPublisher {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductPublisher.class);
-    public static final String FAILED_TO_CREATE_EVENT_WRAPPER_MESSAGE = "Failed to create event wrapper message.";
-    public static final String FAILED_TO_CREATE_PRODUCT_EVENT_MESSAGE = "Failed to create product event message.";
+
+    private static final String FAILED_TO_CREATE_EVENT_WRAPPER_MESSAGE = "Failed to create event wrapper message.";
+    private static final String FAILED_TO_CREATE_PRODUCT_EVENT_MESSAGE = "Failed to create product event message.";
 
     private final AmazonSNS snsClient;
     private final Topic productEventTopic;
