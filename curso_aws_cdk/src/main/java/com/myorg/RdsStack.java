@@ -17,6 +17,7 @@ public class RdsStack extends Stack {
         CfnParameter databasePassword = CfnParameter.Builder.create(this, "databasePassword")
                 .type("String")
                 .description("The RDS instance password")
+                .defaultValue("temp_Pa55word")
                 .build();
 
         ISecurityGroup iSecurityGroup = SecurityGroup.fromSecurityGroupId(this, id, vpc.getVpcDefaultSecurityGroup());

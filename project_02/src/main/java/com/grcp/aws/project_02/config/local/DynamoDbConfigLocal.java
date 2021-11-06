@@ -66,8 +66,6 @@ public class DynamoDbConfigLocal {
     }
 
     private void createTable() throws InterruptedException {
-//        DynamoDB dynamoDB = new DynamoDB(amazonDynamoDB);
-
         List<AttributeDefinition> attributeDefinitions = new ArrayList<AttributeDefinition>();
         attributeDefinitions.add(new AttributeDefinition().withAttributeName("pk").withAttributeType(ScalarAttributeType.S));
         attributeDefinitions.add(new AttributeDefinition().withAttributeName("sk").withAttributeType(ScalarAttributeType.S));

@@ -22,12 +22,12 @@ plugins {
 }
 
 group = 'gabrielrcpereira'
-version = '1.0.2'
+version = '1.1.2'
 sourceCompatibility = '11'
 
 bootJar {
 	baseName = 'aws_project01'
-	version =  '1.0.2'
+	version =  '1.1.2'
 	mainClassName = "com.grcp.aws.project_01.Application"
 }
 
