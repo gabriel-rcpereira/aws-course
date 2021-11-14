@@ -1,0 +1,7 @@
+{
+	"invoiceNumber": "XTPR1",
+	"customerName": "My customer",
+	"totalValue": 154.0,
+	"productId": 123,
+	"quantity": 1
+}

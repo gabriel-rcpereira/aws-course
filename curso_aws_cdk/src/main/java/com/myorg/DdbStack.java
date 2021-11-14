@@ -1,13 +1,7 @@
 package com.myorg;
 
-import software.amazon.awscdk.core.Construct;
-import software.amazon.awscdk.core.RemovalPolicy;
-import software.amazon.awscdk.core.Stack;
-import software.amazon.awscdk.core.StackProps;
-import software.amazon.awscdk.services.dynamodb.Attribute;
-import software.amazon.awscdk.services.dynamodb.AttributeType;
-import software.amazon.awscdk.services.dynamodb.BillingMode;
-import software.amazon.awscdk.services.dynamodb.Table;
+import software.amazon.awscdk.core.*;
+import software.amazon.awscdk.services.dynamodb.*;
 
 public class DdbStack extends Stack {
     private final Table productEventsDdb;
@@ -21,9 +15,7 @@ public class DdbStack extends Stack {
 
         productEventsDdb = Table.Builder.create(this, "ProductEventsDb")
                 .tableName("product-events")
-                .billingMode(BillingMode.PROVISIONED)
-                .readCapacity(1)
-                .writeCapacity(1)
+                .billingMode(BillingMode.PAY_PER_REQUEST)
                 .partitionKey(Attribute.builder()
                         .name("pk")
                         .type(AttributeType.STRING)
@@ -41,3 +33,19 @@ public class DdbStack extends Stack {
         return productEventsDdb;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

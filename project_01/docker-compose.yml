@@ -16,6 +16,6 @@ services:
     environment:
       - AWS_DEFAULT_REGION=us-east-1
       - EDGE_PORT=4566
-      - SERVICES=sqs,sns, dynamodb
+      - SERVICES=sqs,sns,dynamodb,s3
     volumes:
       - "${TMPDIR:-/tmp/localstack-bkp}:/tmp/localstack-bkp"
