@@ -4,7 +4,7 @@ import software.amazon.awscdk.core.App;
 
 import java.util.Arrays;
 
-public class CursoAwsCdkApp {
+public class CourseAwsCdkApp {
     public static void main(final String[] args) {
         App app = new App();
 
@@ -20,9 +20,12 @@ public class CursoAwsCdkApp {
 
         InvoiceAppStack invoiceAppStack = new InvoiceAppStack(app, "InvoiceApp");
 
-        Service01Stack service01Stack = new Service01Stack(app, "Service01",
-                clusterStack.getCluster(), snsStack.getProductEventsTopic(),
-                invoiceAppStack.getBucket(), invoiceAppStack.getS3InvoiceQueue());
+        Service01Stack service01Stack = new Service01Stack(app,
+                "Service01",
+                clusterStack.getCluster(),
+                snsStack.getProductEventsTopic(),
+                invoiceAppStack.getBucket(),
+                invoiceAppStack.getS3InvoiceQueue());
         service01Stack.addDependency(clusterStack);
         service01Stack.addDependency(rdsStack);
         service01Stack.addDependency(snsStack);
@@ -30,8 +33,11 @@ public class CursoAwsCdkApp {
 
         DdbStack ddbStack = new DdbStack(app, "Ddb");
 
-        Service02Stack service02Stack = new Service02Stack(app, "Service02",
-                clusterStack.getCluster(), snsStack.getProductEventsTopic(), ddbStack.getProductEventsDdb());
+        Service02Stack service02Stack = new Service02Stack(app,
+                "Service02",
+                clusterStack.getCluster(),
+                snsStack.getProductEventsTopic(),
+                ddbStack.getProductEventsDdb());
         service02Stack.addDependency(clusterStack);
         service02Stack.addDependency(snsStack);
         service02Stack.addDependency(ddbStack);

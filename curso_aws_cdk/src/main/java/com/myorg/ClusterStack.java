@@ -7,13 +7,14 @@ import software.amazon.awscdk.services.ec2.Vpc;
 import software.amazon.awscdk.services.ecs.Cluster;
 
 public class ClusterStack extends Stack {
-    private Cluster cluster;
+
+    private final Cluster cluster;
 
     public ClusterStack(final Construct scope, final String id, Vpc vpc) {
         this(scope, id, null, vpc);
     }
 
-    public ClusterStack(final Construct scope, final String id, final StackProps props, Vpc vpc) {
+    public ClusterStack(final Construct scope, final String id, final StackProps props, final Vpc vpc) {
         super(scope, id, props);
 
         cluster = Cluster.Builder.create(this, id)

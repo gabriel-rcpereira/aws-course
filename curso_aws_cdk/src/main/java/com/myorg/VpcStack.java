@@ -6,7 +6,8 @@ import software.amazon.awscdk.core.StackProps;
 import software.amazon.awscdk.services.ec2.Vpc;
 
 public class VpcStack extends Stack {
-    private Vpc vpc;
+
+    private final Vpc vpc;
 
     public VpcStack(final Construct scope, final String id) {
         this(scope, id, null);

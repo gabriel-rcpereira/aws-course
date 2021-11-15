@@ -4,6 +4,7 @@ import software.amazon.awscdk.core.*;
 import software.amazon.awscdk.services.dynamodb.*;
 
 public class DdbStack extends Stack {
+
     private final Table productEventsDdb;
 
     public DdbStack(final Construct scope, final String id) {

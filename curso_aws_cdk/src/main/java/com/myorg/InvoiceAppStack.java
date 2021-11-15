@@ -14,6 +14,7 @@ import software.amazon.awscdk.services.sqs.DeadLetterQueue;
 import software.amazon.awscdk.services.sqs.Queue;
 
 public class InvoiceAppStack extends Stack {
+
     private final Bucket bucket;
     private final Queue s3InvoiceQueue;
 

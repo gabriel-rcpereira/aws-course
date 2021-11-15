@@ -8,6 +8,7 @@ import software.amazon.awscdk.services.sns.Topic;
 import software.amazon.awscdk.services.sns.subscriptions.EmailSubscription;
 
 public class SnsStack extends Stack {
+
     private final SnsTopic productEventsTopic;
 
     public SnsStack(final Construct scope, final String id) {
@@ -22,11 +23,9 @@ public class SnsStack extends Stack {
                 .build())
                 .build();
 
-        //TODO - remover essa inscrição
-        productEventsTopic.getTopic().addSubscription(EmailSubscription.Builder.create("siecola@gmail.com")
+        productEventsTopic.getTopic().addSubscription(EmailSubscription.Builder.create("gab_rcpereira@yahoo.com.br")
                 .json(true)
                 .build());
-
     }
 
     public SnsTopic getProductEventsTopic() {

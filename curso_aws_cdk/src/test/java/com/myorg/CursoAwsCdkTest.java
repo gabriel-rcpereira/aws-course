@@ -17,7 +17,7 @@ public class CursoAwsCdkTest {
     @Test
     public void testStack() throws IOException {
         App app = new App();
-        CursoAwsCdkStack stack = new CursoAwsCdkStack(app, "test");
+        CourseAwsCdkStack stack = new CourseAwsCdkStack(app, "test");
 
         // synthesize the stack to a CloudFormation template and compare against
         // a checked-in JSON file.

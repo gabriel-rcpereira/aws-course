@@ -15,13 +15,23 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Service01Stack extends Stack {
-    public Service01Stack(final Construct scope, final String id, Cluster cluster, SnsTopic productEventsTopic,
-                          Bucket invoiceBucket, Queue invoiceQueue) {
+
+    public Service01Stack(final Construct scope,
+                          final String id,
+                          final Cluster cluster,
+                          final SnsTopic productEventsTopic,
+                          final Bucket invoiceBucket,
+                          final Queue invoiceQueue) {
         this(scope, id, null, cluster, productEventsTopic, invoiceBucket, invoiceQueue);
     }
 
-    public Service01Stack(final Construct scope, final String id, final StackProps props, Cluster cluster,
-                          SnsTopic productEventsTopic, Bucket invoiceBucket, Queue invoiceQueue) {
+    public Service01Stack(final Construct scope,
+                          final String id,
+                          final StackProps props,
+                          final Cluster cluster,
+                          final SnsTopic productEventsTopic,
+                          final Bucket invoiceBucket,
+                          final Queue invoiceQueue) {
         super(scope, id, props);
 
         Map<String, String> envVariables = new HashMap<>();
@@ -39,12 +49,12 @@ public class Service01Stack extends Stack {
                 .cluster(cluster)
                 .cpu(512)
                 .memoryLimitMiB(1024)
-                .desiredCount(2)
+                .desiredCount(1)
                 .listenerPort(8080)
                 .taskImageOptions(
                         ApplicationLoadBalancedTaskImageOptions.builder()
                                 .containerName("aws_project01")
-                                .image(ContainerImage.fromRegistry("siecola/curso_aws_project01:1.7.0"))
+                                .image(ContainerImage.fromRegistry("gabrielrcpereira/aws_project01:1.1.2"))
                                 .containerPort(8080)
                                 .logDriver(LogDriver.awsLogs(AwsLogDriverProps.builder()
                                         .logGroup(LogGroup.Builder.create(this, "Service01LogGroup")
@@ -65,8 +75,8 @@ public class Service01Stack extends Stack {
                 .build());
 
         ScalableTaskCount scalableTaskCount = service01.getService().autoScaleTaskCount(EnableScalingProps.builder()
-                .minCapacity(2)
-                .maxCapacity(4)
+                .minCapacity(1)
+                .maxCapacity(2)
                 .build());
 
         scalableTaskCount.scaleOnCpuUtilization("Service01AutoScaling", CpuUtilizationScalingProps.builder()

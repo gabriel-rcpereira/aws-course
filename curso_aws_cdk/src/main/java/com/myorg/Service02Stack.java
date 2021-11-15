@@ -17,11 +17,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Service02Stack extends Stack {
-    public Service02Stack(final Construct scope, final String id, Cluster cluster, SnsTopic productEventsTopic, Table productEventsDdb) {
+
+    public Service02Stack(final Construct scope,
+                          final String id,
+                          final Cluster cluster,
+                          final SnsTopic productEventsTopic,
+                          final Table productEventsDdb) {
         this(scope, id, null, cluster, productEventsTopic, productEventsDdb);
     }
 
-    public Service02Stack(final Construct scope, final String id, final StackProps props, Cluster cluster, SnsTopic productEventsTopic, Table productEventsDdb) {
+    public Service02Stack(final Construct scope,
+                          final String id,
+                          final StackProps props,
+                          final Cluster cluster,
+                          final SnsTopic productEventsTopic,
+                          final Table productEventsDdb) {
         super(scope, id, props);
 
         Queue productEventsDlq = Queue.Builder.create(this, "ProductEventsDlq")
@@ -45,18 +55,17 @@ public class Service02Stack extends Stack {
         envVariables.put("AWS_REGION", "us-east-1");
         envVariables.put("AWS_SQS_QUEUE_PRODUCT_EVENTS_NAME", productEventsQueue.getQueueName());
 
-
         ApplicationLoadBalancedFargateService service02 = ApplicationLoadBalancedFargateService.Builder.create(this, "ALB02")
                 .serviceName("service-02")
                 .cluster(cluster)
                 .cpu(512)
                 .memoryLimitMiB(1024)
-                .desiredCount(2)
+                .desiredCount(1)
                 .listenerPort(9090)
                 .taskImageOptions(
                         ApplicationLoadBalancedTaskImageOptions.builder()
                                 .containerName("aws_project02")
-                                .image(ContainerImage.fromRegistry("siecola/curso_aws_project02:1.5.0"))
+                                .image(ContainerImage.fromRegistry("gabrielrcpereira/aws_project02:1.1.0"))
                                 .containerPort(9090)
                                 .logDriver(LogDriver.awsLogs(AwsLogDriverProps.builder()
                                         .logGroup(LogGroup.Builder.create(this, "Service02LogGroup")
@@ -77,8 +86,8 @@ public class Service02Stack extends Stack {
                 .build());
 
         ScalableTaskCount scalableTaskCount = service02.getService().autoScaleTaskCount(EnableScalingProps.builder()
-                .minCapacity(2)
-                .maxCapacity(4)
+                .minCapacity(1)
+                .maxCapacity(2)
                 .build());
 
         scalableTaskCount.scaleOnCpuUtilization("Service02AutoScaling", CpuUtilizationScalingProps.builder()
